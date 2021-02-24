@@ -8,6 +8,27 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
     />
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie("csrftoken");
+    </script>
 
     <link
       rel="stylesheet"
@@ -20,29 +41,37 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="">SHOPP</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{% url 'home' %}">Store <span class="sr-only">(current)</span></a>
-            </li>
-       
-          </ul>
-          <div class="form-inline my-2 my-lg-0">
-               <a href="#"class="btn btn-warning">Login</a>
-               
-               <a href="{% url 'cart' %}">
-                  <img  id="cart-icon" src="{% static 'images/cart.png' %}">
-              </a>
-              <p id="cart-total">0</p>
-      
-          </div>
+      <a class="navbar-brand" href="">SHOPP</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}"
+              >Store <span class="sr-only">(current)</span></a
+            >
+          </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+          <a href="#" class="btn btn-warning">Login</a>
+
+          <a href="{% url 'cart' %}">
+            <img id="cart-icon" src="{% static 'images/cart.png' %}" />
+          </a>
+          <p id="cart-total">{{ cartItems }}</p>
         </div>
-      </nav>
+      </div>
+    </nav>
     <div class="container">{% block content %} {% endblock %}</div>
 
     <script
@@ -62,5 +91,7 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
+
+    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
   </body>
 </html>
