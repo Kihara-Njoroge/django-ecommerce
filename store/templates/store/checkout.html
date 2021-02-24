@@ -112,35 +112,37 @@
 </div>
 <script src="https://www.paypal.com/sdk/js?client-id=AedUNvamxnirjHlRH2a7jjdcqkgT96NbWY7TSiV8JReL48D9rrxalhXRtwnYBhwbKdv3g3R1iRJJnr1P"></script>
 <script>
-  paypal
-    .Buttons({
-		style:{
-			color:'silver',
-			shape:'pill',
+	var total = '{{order.get_cart_total}}'
+	// Render the PayPal button into #paypal-button-container
+	paypal.Buttons({
+
+		style: {
+			color:  'blue',
+			shape:  'rect',
 		},
-      createOrder: function (data, actions) {
-        // This function sets up the details of the transaction, including the amount and line item details.
-        return actions.order.create({
-          purchase_units: [
-            {
-              amount: {
-                value: "0.01",
-              },
-            },
-          ],
-        });
-      },
-      onApprove: function (data, actions) {
-        // This function captures the funds from the transaction.
-        return actions.order.capture().then(function (details) {
-          // This function shows a transaction success message to your buyer.
-          alert("Transaction completed by " + details.payer.name.given_name);
-        });
-      },
-    })
-    .render("#paypal-button-container");
-  //This function displays Smart Payment Buttons on your web page.
+
+		// Set up the transaction
+		createOrder: function(data, actions) {
+			return actions.order.create({
+				purchase_units: [{
+					amount: {
+						value:parseFloat(total).toFixed(2)
+					}
+				}]
+			});
+		},
+
+		// Finalize the transaction
+		onApprove: function(data, actions) {
+			return actions.order.capture().then(function(details) {
+				// Show a success message to the buyer
+				submitFormData()
+			});
+		}
+
+	}).render('#paypal-button-container');
 </script>
+
 
 <script type="text/javascript">
   var shipping = "{{order.shipping}}";
@@ -168,13 +170,6 @@
     document.getElementById("form-button").classList.add("hidden");
     document.getElementById("payment-info").classList.remove("hidden");
   });
-  /*
-  document
-    .getElementById("make-payment")
-    .addEventListener("click", function (e) {
-      submitFormData();
-	});
-	*/
 
   function submitFormData() {
     console.log("Payment button clicked");
