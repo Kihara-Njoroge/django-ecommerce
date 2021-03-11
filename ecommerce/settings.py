@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -143,6 +142,3 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STRIPE_SECRET_KEY = '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'
 STRIPE_PUBLIC_KEY = 'pk_live_51IToNmLzT8E4NqmEvfDvwZnHB30klt1iE7Vx5y4xl8dn06Anoqt0XjEHwoMYbPZjrggt7nf5yCzzYhXDggU60wxf00CFmYqFkZ'
-
-# heroku
-django_heroku.settings(locals())
