@@ -1,10 +1,18 @@
 from django.urls import path
-from . import views
+from store.views import(
+    CheckoutPage, home,
+    cart, updateItem, processOrder,
+    stripe_config, create_checkout_session,
+    stripe_webhook,
+)
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('checkout/', views.checkout, name='checkout'),
-    path('cart/', views.cart, name='cart'),
-    path('update_item/', views.updateItem, name='update_item'),
-    path('process_order/', views.processOrder, name='process_order'),
+    path('', home, name='home'),
+    path('checkout/', CheckoutPage.as_view(), name='checkout'),
+    path('cart/', cart, name='cart'),
+    path('update_item/', updateItem, name='update_item'),
+    path('process_order/', processOrder, name='process_order'),
+    path('config/', stripe_config),
+    path('create-checkout-session/', create_checkout_session),
+    path('webhook/', stripe_webhook),
 ]
