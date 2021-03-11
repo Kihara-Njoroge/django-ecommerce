@@ -146,8 +146,8 @@ def create_checkout_session(request):
                 mode='payment',
                 line_items=[
                     {
-                        'name': 'products',
-                        'quantity': 3,
+                        'name': 'Servies',
+                        'quantity': 1,
                         'currency': 'usd',
                         'amount': 12700,
                     }
