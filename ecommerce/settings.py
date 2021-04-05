@@ -123,23 +123,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # AWS configuration
-AWS_ACCESS_KEY_ID = 'AKIA2BLYWF2X5L53PR5C'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'systechsolutions'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+AWS_ACCESS_KEY_ID = 'AKIA2BLYWF2XZ4BS5YMQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'systech2'
 
 
 STRIPE_SECRET_KEY = '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'
