@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
+from django.core.paginator import Paginator
 from django.urls import reverse
 from django.views.generic import TemplateView
 from django.views import View
@@ -23,7 +24,11 @@ def home(request):
     items = data['items']
 
     products = Product.objects.all()
-    context = {'products': products, 'cartItems': cartItems}
+    paginator = Paginator(products, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'products': products,
+               'cartItems': cartItems, 'page_obj': page_obj}
     return render(request, 'store/home.html', context)
 
 

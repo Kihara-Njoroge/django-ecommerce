@@ -1,7 +1,7 @@
 {% extends 'store/base.html' %} {% load static %} {% block content %}
 
 <div class="row">
-  {% for product in products %}
+  {% for product in page_obj %}
   <div class="col-lg-4">
     <div class="box-element product">
       <img
@@ -17,4 +17,16 @@
     </div>
   </div>
   {% endfor %}
+  <div class="text-center container mt-5">
+    {% if page_obj.has_previous %}
+      <a class="poppins-font p-2" href="?page={{page_obj.previos_page_number}}">previous</a>
+    {% endif %}
+
+    <a class="p-2 active-btn poppins-font text-dark" style="background-color:#fff600;">{{page_obj.number}}</a>
+
+    {% if page_obj.has_next %}
+      <a class="p-2 poppins-font" href="?page={{ page_obj.next_page_number }}">next</a>
+    {% endif %}
+
+  </div>
 {% endblock %}
